@@ -30,7 +30,13 @@ void main()
 		if(nn[i]=='*')
 		{
 			int q=nn[i+1]-'0';
-			jg=jg+q;
+			jg=jg*q;
+			i++;
+		}
+		else if(nn[i]=='/')
+		{
+			int q=nn[i+1]-'0';
+			jg=jg/q;
 			i++;
 		}
 	}
