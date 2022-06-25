@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<windows.h>
 
 struct Account
 {
@@ -18,6 +19,7 @@ typedef struct Account Account;
 Account * head=NULL;//指向头结点的指针
 Account * tail=NULL;//指向尾结点的指针 
 Account * curAccount=NULL;//指向当前登录账户的指针 
+ 
 
 void signUpC()
 {
@@ -34,8 +36,7 @@ void signUpC()
 	scanf("%s",newNodeP->tel);
 	
 	printf("请输入账号:\n");
-	scanf("%s",newNodeP->username);
-	
+	scanf("%s",	newNodeP->username);
 	printf("请输入密码:\n");
 	scanf("%s",newNodeP->password);
 	
@@ -53,8 +54,8 @@ void signUpC()
 		tail=newNodeP;
 	}
 	
-	printf("创建成功!\n");
 	
+	printf("创建成功!\n");
 }
 void signUpE()
 {
@@ -246,9 +247,13 @@ void transferC()
 			otherAccount->money+=money;
 			printf("转账成功");
 		}
-		else
+		else if(money>curAccount->money)
 		{
 			printf("余额不足，无法转账！");
+		}
+		else if(money%100!=0)
+		{
+			printf("转账金额不符合规则！");
 		}
 	}
 	
@@ -290,59 +295,84 @@ void transferE()
 
 void homePageC()
 {
-	system("cls");
-	printf("请选择服务：");
-	printf("按1修改密码，按2存款，按3取款，按4转账");
-	int gn;
-	scanf("%d",&gn);
-	if(gn==1)
+	while(1)
 	{
-		updatePasswordC();
-	}
-	else if(gn==2)
-	{
-        saveMoneyC();
-	}
-	else if(gn==3)
-	{
-		drawMoneyC();
-	}
-	else if(gn==4)
-	{
-		transferC();
-	}
-	else
-	{
-		printf("输入错误");
+		system("cls");
+		printf("请选择服务：");
+		printf("按1修改密码，按2存款，按3取款，按4转账,按0返回");
+		
+		int gn;
+		scanf("%d",&gn);
+		if(gn==1)
+		{
+			updatePasswordC();
+			Sleep(1200);
+		}
+		else if(gn==2)
+		{
+			saveMoneyC();
+			Sleep(1200);
+		}
+		else if(gn==3)
+		{
+			drawMoneyC();
+			Sleep(1200);
+		}
+		else if(gn==4)
+		{
+			transferC();
+			Sleep(1200);
+		}
+		else if(gn==0)
+		{
+			break;
+		}
+		else
+		{
+			printf("输入错误");
+			Sleep(200);
+		}
 	}
 }
 
 void homePageE()
 {
-	system("cls");
-	printf("please select a service：");
-	printf("press 1 to change the password，deposit by 2，withdraw by 3，transfer by 4");
-	int gn;
-	scanf("%d",&gn);
-	if(gn==1)
+	while(1)
 	{
-		updatePasswordE();
-	}
-	else if(gn==2)
-	{
-        saveMoneyE();
-	}
-	else if(gn==3)
-	{
-		drawMoneyE();
-	}
-	else if(gn==4)
-	{
-		transferE();
-	}
-	else
-	{
-		printf("Input error");
+		system("cls");
+		printf("please select a service：");
+		printf("press 1 to change the password，deposit by 2，withdraw by 3，transfer by 4");
+		int gn;
+		scanf("%d",&gn);
+		if(gn==1)
+		{
+			updatePasswordE();
+			Sleep(1200);
+		}
+		else if(gn==2)
+		{
+			saveMoneyE();
+			Sleep(1200);
+		}
+		else if(gn==3)
+		{
+			drawMoneyE();
+			Sleep(1200);
+		}
+		else if(gn==4)
+		{
+			transferE();
+			Sleep(1200);
+		}
+		else if(gn==0)
+		{
+			break;
+		}
+		else
+		{
+			printf("Input error");
+			Sleep(1200);
+		}
 	}
 }
 void signInC()
@@ -356,7 +386,6 @@ void signInC()
 		
 		printf("请输入密码：\n");
 		scanf("%s",a.password);
-		
 		if(findAccount(a))
 		{
 			homePageC();
@@ -448,95 +477,139 @@ void saveData()
 
 void showMenuC()
 {
-	printf("开户，按1\n");
-	printf("登录，按2\n");
-	int n;
-	scanf("%d",&n);
-	
-	if(n==1)
+	while(1)
 	{
-		signUpC();
-	}
-	else if(n==2)
-	{
+		system("cls");
+		Sleep(200);
+		printf("开户，按1\n");
+		printf("登录，按2\n");
+		printf("返回，按0\n");
 		
-		signInC();
-	}
-	
-	
-	
-	else
-	{
-		printf("输入错误！");
+		int n;
+		scanf("%d",&n);
+		
+		if(n==1)
+		{
+			signUpC();	
+			Sleep(1000);
+		}
+		else if(n==2)
+		{
+			
+			signInC();
+			Sleep(1000);
+		}
+		else if(n==0)
+		{
+			break;
+		}
+		
+		
+		else
+		{
+			printf("输入错误！");
+		}
 	}
 }
 
 void showMenuE()
 {
-	printf("signUp，input 1\n");
-	printf("signIn，input 2\n");
-	int n;
-	scanf("%d",&n);
-	
-	if(n==1)
+	while(1)
 	{
-		signUpE();
-	}
-	else if(n==2)
-	{
+		printf("signUp，input 1\n");
+		printf("signIn，input 2\n");
+		printf("return,input 0\n");
+		int n;
+		scanf("%d",&n);
 		
-		signInE();
-		
-		
-	}
-	else
-	{
-		printf("Input error！");
+		if(n==1)
+		{
+			signUpE();
+			Sleep(1000);
+		}
+		else if(n==2)
+		{
+			
+			signInE();
+			Sleep(1000);
+			
+		}
+		else if(n==0)
+		{
+			break;
+		}
+		else
+		{
+			printf("Input error！");
+		}
 	}
 }
+
 int main()
 {
-	printf("欢迎使用XXX银行\n");
-	printf("Welcome to XXX bank\n");
 	
-	int language;
-	printf("中文，按1\n");
-	printf("English, input 2\n");
-	scanf("%d",&language);
-	if(language==1)
-	{
-		int status=loadData();
-		if(status==1)
+	while(1)
+	{	
+		system("cls");
+		printf("*****************************************************\n");
+		printf("*****************************************************\n");
+		printf("************    欢迎使用中国银行        *************\n");
+		printf("************   Welcome to China bank    *************\n");
+		printf("*****************************************************\n");
+		printf("*****************************************************\n");
+		
+		int language;
+		printf("\n");
+		printf("*******           请选择语言                 ********\n");
+		printf("*******           please select a language   ********\n");
+		printf("*******                                      ********\n");
+		printf("*******           中文，按1                  ********\n");
+		printf("*******           English, input 2           ********\n");
+		printf("*******                                      ********\n");
+		printf("*******           退出按3                    ********\n");
+		printf("*******           quit input3                ********\n");
+		scanf("%d",&language);
+		if(language==1)
 		{
-			printf("加载成功！\n");
-			showMenuC();
-		               saveData();
-		}
-		else
-		{
-			printf("加载失败！\n");
-		}
+			int status=loadData();
+			if(status==1)
+			{
+				printf("加载成功！\n");
+				showMenuC();
+				
+				
+			}
+			else
+			{
+				printf("加载失败！\n");
+			}
 			
-	}
-	else if(language==2)
-	{
-		int status=loadData();
-		if(status==1)
+		}
+		else if(language==2)
 		{
-			printf("Load successful！\n");
-			showMenuE();
-			saveData();
+			int status=loadData();
+			if(status==1)
+			{
+				printf("Load successful！\n");
+				showMenuE();
+				
+			}
+			else
+			{
+				printf("failed to load！\n");
+			}
+			
+		}
+		else if(language==3)
+		{
+			break;
 		}
 		else
 		{
-			printf("failed to load！\n");
-		}	
+			printf("输入错误！\n");
+			printf("Input error");
+		}
 	}
-	else
-	{
-		printf("输入错误！\n");
-		printf("Input error");
-	}
-	
-	return 0;
-} 
+				saveData();
+				return 0;
+}  
